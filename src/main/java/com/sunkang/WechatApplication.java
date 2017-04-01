@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 /**
  * Created by changxiang on 2017-04-01.
- * springboot启动类
+ * springboot启动类ss222
  */
 @SpringBootApplication//springboot应用
 @EnableAutoConfiguration//打开自动配置
