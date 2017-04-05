@@ -4,15 +4,19 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
 import java.io.PrintStream;
 
 /**
- * Created by changxiang on 2017-04-01.
- * springboot启动类ss222
+ * Created by sunkang on 2017-04-01.
+ * springboot启动类
  */
 @SpringBootApplication//springboot应用
+@ServletComponentScan( basePackages = "com.sunkang.*")
+@ComponentScan( basePackages = "com.sunkang.*")
 @EnableAutoConfiguration//打开自动配置
 public class WechatApplication {
     public static void main(String[] args) {
