@@ -111,19 +111,26 @@
       <artifactId>spring-boot-devtools</artifactId>
     </dependency>
 
+    <!--操作xml文档-->
+    <dependency>
+      <groupId>org.tinygroup</groupId>
+      <artifactId>xstream</artifactId>
+      <version>0.0.12</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>wechat</finalName>
     <!--加上这个可以解决mapper编译问题，但是会导致maven不能import加jar包，import jar时需要注释掉-->
     <resources>
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.xml</include>
-        </includes>
-        <filtering>false</filtering>
-      </resource>
-    </resources>
+    <resource>
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+      <filtering>false</filtering>
+    </resource>
+  </resources>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

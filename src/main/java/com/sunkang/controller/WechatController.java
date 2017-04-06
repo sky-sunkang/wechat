@@ -1,5 +1,6 @@
 package com.sunkang.controller;
 
+import com.sunkang.common.Constants;
 import com.sunkang.utils.BytesStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class WechatController {
         logger.debug("开始验证token【"+signature+","+timestamp+","+nonce+","+echostr+"】...");
         try {
             //1）将token(公众平台填的token)、timestamp、nonce三个参数进行字典序排序
-            String[] arr=new String[]{"sunkang",timestamp,nonce};
+            String[] arr=new String[]{Constants.TOKEN,timestamp,nonce};
             Arrays.sort(arr);
 
             //2）将三个参数字符串拼接成一个字符串进行sha1加密

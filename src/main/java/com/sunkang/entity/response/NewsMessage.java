@@ -2,6 +2,8 @@ package com.sunkang.entity.response;
 
 import com.sunkang.entity.response.base.Articles;
 
+import java.util.List;
+
 /**
  * @author 孙康
  * @date 2017/4/5
@@ -17,7 +19,7 @@ public class NewsMessage {
     /**
      * 多条图文消息信息，默认第一个item为大图,注意，如果图文数超过10，则将会无响应
      */
-    private Articles Articles;
+    private List<Articles> Articles;
 
     public String getArticleCount() {
         return ArticleCount;
@@ -27,11 +29,11 @@ public class NewsMessage {
         ArticleCount = articleCount;
     }
 
-    public com.sunkang.entity.response.base.Articles getArticles() {
+    public List<com.sunkang.entity.response.base.Articles> getArticles() {
         return Articles;
     }
 
-    public void setArticles(com.sunkang.entity.response.base.Articles articles) {
+    public void setArticles(List<com.sunkang.entity.response.base.Articles> articles) {
         Articles = articles;
     }
 }
