@@ -1,6 +1,6 @@
-package com.sunkang.entity.request;
+package com.sunkang.entity.req;
 
-import com.sunkang.entity.request.base.BaseMessage;
+import com.sunkang.entity.req.base.BaseMessage;
 
 /**
  * Created by sunkang on 2017/4/5.

@@ -1,6 +1,6 @@
-package com.sunkang.entity.response;
+package com.sunkang.entity.resp;
 
-import com.sunkang.entity.response.base.BaseMessage;
+import com.sunkang.entity.resp.base.BaseMessage;
 
 /**
  * @author 孙康

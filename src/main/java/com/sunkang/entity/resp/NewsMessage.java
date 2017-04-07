@@ -1,6 +1,6 @@
-package com.sunkang.entity.response;
+package com.sunkang.entity.resp;
 
-import com.sunkang.entity.response.base.Articles;
+import com.sunkang.entity.resp.base.Articles;
 
 import java.util.List;
 
@@ -29,11 +29,11 @@ public class NewsMessage {
         ArticleCount = articleCount;
     }
 
-    public List<com.sunkang.entity.response.base.Articles> getArticles() {
+    public List<com.sunkang.entity.resp.base.Articles> getArticles() {
         return Articles;
     }
 
-    public void setArticles(List<com.sunkang.entity.response.base.Articles> articles) {
+    public void setArticles(List<com.sunkang.entity.resp.base.Articles> articles) {
         Articles = articles;
     }
 }

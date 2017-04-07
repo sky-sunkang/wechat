@@ -1,6 +1,6 @@
-package com.sunkang.entity.response;
+package com.sunkang.entity.resp;
 
-import com.sunkang.entity.response.base.Music;
+import com.sunkang.entity.resp.base.Music;
 
 /**
  * @author 孙康
@@ -14,11 +14,11 @@ public class MusicMessage {
      */
     private Music Music;
 
-    public com.sunkang.entity.response.base.Music getMusic() {
+    public com.sunkang.entity.resp.base.Music getMusic() {
         return Music;
     }
 
-    public void setMusic(com.sunkang.entity.response.base.Music music) {
+    public void setMusic(com.sunkang.entity.resp.base.Music music) {
         Music = music;
     }
 }

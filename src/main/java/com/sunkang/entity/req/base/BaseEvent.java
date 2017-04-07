@@ -1,4 +1,4 @@
-package com.sunkang.entity.request.base;
+package com.sunkang.entity.req.base;
 
 /**
  * Created by 孙康 on 2017/4/5.

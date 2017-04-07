@@ -1,23 +1,29 @@
-package com.sunkang.entity.request;
+package com.sunkang.entity.resp.base;
 
 /**
- * Created by sunkang on 2017/4/5.
- * 链接消息
+ * @author 孙康
+ * @date 2017/4/5
+ * Describe：图文消息model
  */
-public class LinkMessage {
+public class Articles {
 
     /**
-     * 消息标题
+     * 图文消息标题
      */
     private String Title;
 
     /**
-     * 消息描述
+     * 图文消息描述
      */
     private String Description;
 
     /**
-     * 消息链接
+     * 图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
+     */
+    private String PicUrl;
+
+    /**
+     * 点击图文消息跳转链接
      */
     private String Url;
 
@@ -35,6 +41,14 @@ public class LinkMessage {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getPicUrl() {
+        return PicUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        PicUrl = picUrl;
     }
 
     public String getUrl() {

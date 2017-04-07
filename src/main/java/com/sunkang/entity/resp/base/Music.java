@@ -1,4 +1,4 @@
-package com.sunkang.entity.response.base;
+package com.sunkang.entity.resp.base;
 
 /**
  * @author 孙康

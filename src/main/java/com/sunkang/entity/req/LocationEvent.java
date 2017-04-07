@@ -1,6 +1,6 @@
-package com.sunkang.entity.request;
+package com.sunkang.entity.req;
 
-import com.sunkang.entity.request.base.BaseEvent;
+import com.sunkang.entity.req.base.BaseEvent;
 
 /**
  * @author 孙康

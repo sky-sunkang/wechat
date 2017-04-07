@@ -1,17 +1,19 @@
-package com.sunkang.entity.request.base;
+package com.sunkang.entity.resp.base;
 
 /**
- * Created by Administrator on 2017/4/5.
- * 请求消息基础类
+ * @author 孙康
+ * @date 2017/4/5
+ * Describe：响应消息基础类
  */
 public class BaseMessage {
+
     /**
-     *开发者微信号
+     *接收方帐号（收到的OpenID）
      */
     private String ToUserName;
 
     /**
-     * 发送方帐号（一个OpenID）
+     * 开发者微信号
      */
     private String FromUserName;
 
@@ -21,14 +23,9 @@ public class BaseMessage {
     private long CreateTime;
 
     /**
-     * 消息类型（text/image/voice/video/shortvideo/location/link)
+     * 消息类型
      */
     private String MsgType;
-
-    /**
-     * 消息id，64位整型
-     */
-    private long MsgId;
 
     public String getToUserName() {
         return ToUserName;
@@ -60,13 +57,5 @@ public class BaseMessage {
 
     public void setMsgType(String msgType) {
         MsgType = msgType;
-    }
-
-    public long getMsgId() {
-        return MsgId;
-    }
-
-    public void setMsgId(long msgId) {
-        MsgId = msgId;
     }
 }
