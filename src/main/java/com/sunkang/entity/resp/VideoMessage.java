@@ -1,6 +1,7 @@
 package com.sunkang.entity.resp;
 
 import com.sunkang.entity.resp.base.BaseMessage;
+import com.sunkang.entity.resp.base.Video;
 
 /**
  * @author 孙康
@@ -10,41 +11,15 @@ import com.sunkang.entity.resp.base.BaseMessage;
 public class VideoMessage extends BaseMessage {
 
     /**
-     * 通过素材管理接口上传多媒体文件，得到的id
+     * 视频
      */
-    private String MediaId;
+    private Video Video;
 
-    /**
-     * 视频消息的标题
-     */
-    private String Title;
-
-    /**
-     * 视频消息的描述
-     */
-    private String Description;
-
-    public String getMediaId() {
-        return MediaId;
+    public com.sunkang.entity.resp.base.Video getVideo() {
+        return Video;
     }
 
-    public void setMediaId(String mediaId) {
-        MediaId = mediaId;
-    }
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String title) {
-        Title = title;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
+    public void setVideo(com.sunkang.entity.resp.base.Video video) {
+        Video = video;
     }
 }

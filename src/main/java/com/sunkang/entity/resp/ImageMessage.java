@@ -1,6 +1,7 @@
 package com.sunkang.entity.resp;
 
 import com.sunkang.entity.resp.base.BaseMessage;
+import com.sunkang.entity.resp.base.Image;
 
 /**
  * @author 孙康
@@ -10,15 +11,15 @@ import com.sunkang.entity.resp.base.BaseMessage;
 public class ImageMessage extends BaseMessage{
 
     /**
-     * 通过素材管理接口上传多媒体文件，得到的id。
+     * 图片
      */
-    private String MediaId;
+    private Image Image;
 
-    public String getMediaId() {
-        return MediaId;
+    public Image getImage() {
+        return Image;
     }
 
-    public void setMediaId(String mediaId) {
-        MediaId = mediaId;
+    public void setImage(Image Image) {
+        this.Image = Image;
     }
 }

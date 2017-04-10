@@ -50,7 +50,7 @@ public class WechatController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET,produces = "text/plain;charset=UTF-8")
     public  String tokenCheck(String  signature,String timestamp,String nonce,String echostr){
         logger.debug("开始验证token【"+signature+","+timestamp+","+nonce+","+echostr+"】...");
         try {
@@ -87,7 +87,7 @@ public class WechatController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
     public String dispose(HttpServletRequest request, HttpServletResponse response){
         logger.debug("微信消息处理开始...");
         InputStream is=null;
@@ -99,7 +99,7 @@ public class WechatController {
             //回复的消息
             String respMessage=null;
 
-            //消息类型
+            //消息类型!@_654123
             String msgType=messageMap.get("MsgType");
             switch (msgType){
                 case Constants.REQ_MESSAGE_TYPE_TEXT ://文本消息
@@ -108,32 +108,49 @@ public class WechatController {
                 case Constants.REQ_MESSAGE_TYPE_IMAGE://图片消息
                     respMessage=messageService.handelImageMessage(messageMap);
                     break;
-                case "voice"://语音消息
-                    String mediaId=messageMap.get("MediaId");//语音媒体id
-                    String format=messageMap.get("Format");//语音格式
-                    String recognition=messageMap.get("Recognition");//语音识别结果，需要开启语音识别
+                case Constants.REQ_MESSAGE_TYPE_VOICE://语音消息
+                    respMessage=messageService.handelVoiceMessage(messageMap);
                     break;
-                case "video"://视频消息
-                    mediaId=messageMap.get("MediaId");//视频消息id
-                    String thumbMediaId=messageMap.get("ThumbMediaId");//语音缩略图id
+                case Constants.REQ_MESSAGE_TYPE_VIDEO://视频消息
+                    respMessage=messageService.handelVideoMessage(messageMap);
                     break;
-                case "shortvideo"://小视频
-                    mediaId=messageMap.get("MediaId");
-                    thumbMediaId=messageMap.get("ThumbMediaId");
+                case Constants.REQ_MESSAGE_TYPE_SHORTVIDEO://小视频
+                    respMessage=messageService.handelShortVideo(messageMap);
                     break;
-                case "location"://位置消息
-                    String location_X= messageMap.get("Location_X");//纬度
-                    String location_Y=messageMap.get("Location_Y");//经度
-                    String scale= messageMap.get("Scale");//缩放比例
-                    String label=messageMap.get("Label");//位置信息
+                case Constants.REQ_MESSAGE_TYPE_LOCATION://位置消息
+                    respMessage=messageService.handelLocationMessage(messageMap);
                     break;
-                case "link"://链接消息
-                    String title=messageMap.get("Title");//标题
-                    String description=messageMap.get("Description");//消息描述
-                    String url=messageMap.get("Url");//消息链接
+                case Constants.REQ_MESSAGE_TYPE_LINK://链接消息
+                    respMessage=messageService.handelLinkMessage(messageMap);
+                    break;
+                case Constants.REQ_MESSAGE_TYPE_EVENT ://事件推送
+
+                    String eventType=messageMap.get("Event");
+                    switch (eventType) {
+                        case Constants.EVENT_TYPE_SUBSCRIBE://关注
+                            respMessage=messageService.handelSubscribeEvent(messageMap);
+                            break;
+                        case Constants.EVENT_TYPE_UNSUBSCRIBE://取消关注
+                            respMessage=messageService.handelUnsubscribeEvent(messageMap);
+                            break;
+                        case Constants.EVENT_TYPE_SCAN://扫描二维码
+                            respMessage=messageService.handelScanEvent(messageMap);
+                            break;
+                        case Constants.EVENT_TYPE_LOCATION://上报地理位置
+                            respMessage=messageService.handelLocationEvent(messageMap);
+                            break;
+                        case Constants.EVENT_TYPE_CLICK://点击菜单
+                            respMessage=messageService.handelClickEvent(messageMap);
+                            break;
+                        case Constants.EVENT_TYPE_VIEW://点击菜单跳转链接时的事件推送
+                            respMessage=messageService.handelViewEvent(messageMap);
+                            break;
+                        default:
+                            logger.error("未知事件:"+eventType);
+                    }
                     break;
                 default:
-                    logger.error("未知消息");
+                    logger.error("未知消息:" +msgType);
             }
 
             //回复消息给用户

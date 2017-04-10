@@ -1,6 +1,7 @@
 package com.sunkang.entity.resp;
 
 import com.sunkang.entity.resp.base.BaseMessage;
+import com.sunkang.entity.resp.base.Voice;
 
 /**
  * @author 孙康
@@ -8,16 +9,17 @@ import com.sunkang.entity.resp.base.BaseMessage;
  * Describe：响应语音消息
  */
 public class VoiceMessage extends BaseMessage{
-    /**
-     * 通过素材管理接口上传多媒体文件，得到的id
-     */
-    private String MediaId;
 
-    public String getMediaId() {
-        return MediaId;
+    /**
+     * 语音消息
+     */
+    private Voice Voice;
+
+    public com.sunkang.entity.resp.base.Voice getVoice() {
+        return Voice;
     }
 
-    public void setMediaId(String mediaId) {
-        MediaId = mediaId;
+    public void setVoice(com.sunkang.entity.resp.base.Voice voice) {
+        Voice = voice;
     }
 }

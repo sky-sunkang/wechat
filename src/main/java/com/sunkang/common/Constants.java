@@ -52,6 +52,11 @@ public class Constants {
     public final static String REQ_MESSAGE_TYPE_LINK="link";
 
     /**
+     * 请求消息类型：事件推送
+     */
+    public final static String REQ_MESSAGE_TYPE_EVENT="event";
+
+    /**
      * 事件类型：订阅
      */
     public final static String EVENT_TYPE_SUBSCRIBE="subscribe";
@@ -64,17 +69,22 @@ public class Constants {
     /**
      * 事件类型：已关注用户扫描二维码
      */
-    public final static String EVENT_TYPE_SCAN="scan";
+    public final static String EVENT_TYPE_SCAN="SCAN";
 
     /**
      * 事件类型：上报地理位置
      */
-    public final static String EVENT_TYPE_LOCATION="location";
+    public final static String EVENT_TYPE_LOCATION="LOCATION";
 
     /**
-     * 响应事件：菜单点击
+     * 事件类型：菜单点击
      */
-    public final static String EVENT_TYPE_CLICK="click";
+    public final static String EVENT_TYPE_CLICK="CLICK";
+
+    /**
+     * 事件类型：点击菜单跳转链接时的事件推送
+     */
+    public final static String EVENT_TYPE_VIEW="VIEW";
 
     /**
      * 响应消息：文本
