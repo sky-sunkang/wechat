@@ -38,7 +38,8 @@
       <scope>test</scope>
     </dependency>
 
-    <!--去除springboot默认支持的logging日志，改用log4j-->
+    <!--springboot web BEGIN-->
+      <!--去除springboot默认支持的logging日志，改用log4j-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
@@ -49,38 +50,53 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--springboot web-->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
-    <!--redis-->
+      <!--开发阶段热部署-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+    <!--springboot web END-->
+
+    <!--数据存储 BEGIN-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-redis</artifactId>
       <version>1.4.0.RELEASE</version>
     </dependency>
 
-    <!--集成mybatis-->
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>1.2.0</version>
     </dependency>
 
-    <!--log4j-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.40</version>
+    </dependency>
+    <!--数据存储 END-->
+
+    <!--log4j BEIGN-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j</artifactId>
       <version>1.2.0.M1</version>
     </dependency>
+    <!--log4j END-->
 
-    <!--对jsp的支持 ，需要屏蔽thymeleaf的包，否则前端就变成thymeleaf-->
+    <!--对jsp支持的包 BEGIN-->
     <dependency>
       <groupId>org.apache.tomcat.embed</groupId>
       <artifactId>tomcat-embed-jasper</artifactId>
@@ -95,23 +111,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
-      <!--<scope>provided</scope>-->
     </dependency>
+    <!--对jsp支持的包 BEGIN-->
 
-    <!--mysql-->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.40</version>
-    </dependency>
-
-    <!--开发阶段热部署-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-    </dependency>
-
-    <!--操作xml文档-->
+    <!--操作xml文档 BEGIN-->
     <dependency>
       <groupId>org.tinygroup</groupId>
       <artifactId>xstream</artifactId>
@@ -123,8 +126,9 @@
       <artifactId>dom4j</artifactId>
       <version>1.6.1</version>
     </dependency>
+    <!--操作xml文档 END-->
 
-    <!--apache的common组件包-->
+    <!--apache的common组件包 BEGIN-->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -136,7 +140,22 @@
       <artifactId>commons-lang</artifactId>
       <version>2.4</version>
     </dependency>
+    <!--apache的common组件包 END-->
 
+    <!--解析json BEGIN-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.8.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <version>2.4</version>
+      <classifier>jdk15</classifier>
+    </dependency>
+    <!--解析json END-->
 
   </dependencies>
   <build>

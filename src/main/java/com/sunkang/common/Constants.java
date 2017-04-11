@@ -6,6 +6,22 @@ package com.sunkang.common;
  * Describe：保存常量
  */
 public class Constants {
+
+    /**
+     * 第三方用户唯一凭证
+     */
+    public final static String APP_ID="wx8790dca489d4979a";
+
+    /**
+     * 第三方用户唯一凭证密钥，即appsecret
+     */
+    public final static String SECRET="1d3b2be33d7940d5cea04a28668f7b02";
+
+    /**
+     *获取access_token
+     */
+    public final static String GRANT_TYPE_CREDENTIAL="client_credential";
+
     /**
      * 公众平台填写的token
      */
