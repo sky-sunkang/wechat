@@ -1,5 +1,6 @@
 package com.sunkang.entity.resp;
 
+import com.sunkang.entity.resp.base.BaseMessage;
 import com.sunkang.entity.resp.base.Music;
 
 /**
@@ -7,7 +8,7 @@ import com.sunkang.entity.resp.base.Music;
  * @date 2017/4/5
  * Describe：响应音乐消息
  */
-public class MusicMessage {
+public class MusicMessage extends BaseMessage{
 
     /**
      * 音乐

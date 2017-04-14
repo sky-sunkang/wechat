@@ -2,6 +2,7 @@ package com.sunkang.controller;
 
 import com.sunkang.common.Constants;
 import com.sunkang.entity.resp.TextMessage;
+import com.sunkang.service.MenuService;
 import com.sunkang.service.MessageService;
 import com.sunkang.utils.BytesStringUtils;
 import com.sunkang.utils.MessageUtils;
@@ -40,6 +41,9 @@ public class WechatController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * token验证，get请求是token验证
@@ -140,7 +144,7 @@ public class WechatController {
                             respMessage=messageService.handelLocationEvent(messageMap);
                             break;
                         case Constants.EVENT_TYPE_CLICK://点击菜单
-                            respMessage=messageService.handelClickEvent(messageMap);
+                            respMessage=menuService.handelClick(messageMap);
                             break;
                         case Constants.EVENT_TYPE_VIEW://点击菜单跳转链接时的事件推送
                             respMessage=messageService.handelViewEvent(messageMap);
