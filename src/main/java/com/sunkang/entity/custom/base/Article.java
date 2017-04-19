@@ -1,11 +1,12 @@
-package com.sunkang.entity.resp.base;
+package com.sunkang.entity.custom.base;
 
 /**
  * @author 孙康
- * @date 2017/4/5
+ * @date 2017/4/17
  * Describe：图文消息model
  */
-public class Articles {
+public class Article {
+
     /**
      * 图文消息标题
      */

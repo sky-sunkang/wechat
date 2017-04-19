@@ -1,5 +1,6 @@
 package com.sunkang.utils;
 
+import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -36,6 +37,6 @@ public class MessageUtils {
                 map.put(element.getName(),element.getText());
             }
             return map;
-//            String xmlStr=IOUtils.toString(is,"UTF-8");//将inputStream转换成字符串
+//            String xmlStr= IOUtils.toString(is,"UTF-8");//将inputStream转换成字符串
     }
 }

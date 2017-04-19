@@ -1,4 +1,4 @@
-package com.sunkang.entity.customMsg.base;
+package com.sunkang.entity.custom.base;
 
 /**
  * @author 孙康

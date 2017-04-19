@@ -1,9 +1,7 @@
-package com.sunkang.entity.customMsg;
+package com.sunkang.entity.custom;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sunkang.entity.customMsg.base.BaseCustomMessage;
-import com.sunkang.entity.customMsg.base.Customservice;
-import com.sunkang.entity.customMsg.base.Text;
+import com.sunkang.entity.custom.base.BaseCustomMessage;
+import com.sunkang.entity.custom.base.Text;
 
 /**
  * @author 孙康

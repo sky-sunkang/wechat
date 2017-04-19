@@ -1,14 +1,14 @@
-package com.sunkang.entity.customMsg.base;
+package com.sunkang.entity.custom.base;
 
 /**
  * @author 孙康
  * @date 2017/4/14
- * Describe：语音消息model
+ * Describe：客服图片消息model
  */
-public class Voice {
+public class Image {
 
     /**
-     * 媒体文件id
+     * 媒体文件Id
      */
     private String media_id;
 

@@ -27,6 +27,7 @@ public class TokenService {
     /**
      * 从redis数据库中获取access_token
      * @return
+     * mdnH1K1P8Fgq0LdEifeDkYi4M1sxYGWQWdENPZ4ZwPlm-wRRyoA94L1lNawDpjD8k5vCWh5Spyl5nYrq6qEOABb9LK92n-YkMRZ-ykQJwzia9Ju_LfahDHzpCnTckwWUUOCbABALFT
      */
     public String getAccessToken(){
         return accessTokenRepository.getAccessToken("access_token").getAccessToken();

@@ -1,14 +1,14 @@
-package com.sunkang.entity.customMsg.base;
+package com.sunkang.entity.custom.base;
 
 /**
  * @author 孙康
- * @date 2017/4/14
- * Describe：客服图片消息model
+ * @date 2017/4/17
+ * Describe：图文消息mold
  */
-public class Image {
+public class Mpnews {
 
     /**
-     * 媒体文件Id
+     * 媒体id
      */
     private String media_id;
 

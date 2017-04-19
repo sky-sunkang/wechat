@@ -133,9 +133,9 @@ public class MenuService {
         but1.setSub_button(new Button[]{but11,but12,but13});
 
         ViewButton but2=new ViewButton();
-        but2.setName("查找资料");
+        but2.setName("查看我的信息");
         but2.setType("view");
-        but2.setUrl("http://www.baidu.com/");
+        but2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8790dca489d4979a&redirect_uri=http%3A%2F%2Fsunkang.wicp.net%2Fwechat%2FtestOAuth&response_type=code&scope=snsapi_userinfo&state=112#wechat_redirect");
 
         ClickButton but3=new ClickButton();
         but3.setName("点个赞");

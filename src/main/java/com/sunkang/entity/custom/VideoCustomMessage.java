@@ -1,7 +1,7 @@
-package com.sunkang.entity.customMsg;
+package com.sunkang.entity.custom;
 
-import com.sunkang.entity.customMsg.base.BaseCustomMessage;
-import com.sunkang.entity.customMsg.base.Video;
+import com.sunkang.entity.custom.base.BaseCustomMessage;
+import com.sunkang.entity.custom.base.Video;
 
 /**
  * @author 孙康
