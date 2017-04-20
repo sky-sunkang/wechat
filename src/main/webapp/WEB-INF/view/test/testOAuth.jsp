@@ -54,7 +54,15 @@ ${error}
 </div>
 <div class="row">
     <div class="col-xs-4">特权信息</div>
-    <div class="col-xs-8">${userInfo.privilege}</div>
+    <div class="col-xs-8">
+
+        <c:if test="${userInfo.privilege=='[]'}">
+            无特权
+        </c:if>
+        <c:if test="${userInfo.privilege!='[]'}">
+            ${userInfo.privilege}
+        </c:if>
+    </div>
 </div>
 </body>
 </html>

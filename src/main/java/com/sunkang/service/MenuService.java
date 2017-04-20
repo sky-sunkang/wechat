@@ -125,22 +125,32 @@ public class MenuService {
 
         ViewButton but13=new ViewButton();
         but13.setName("孙康的社区");
-        but13.setUrl("http://sunkang.wicp.net/wechat//toSKCommunity");
+        but13.setUrl("http://sunkang.wicp.net/wechat/toSKCommunity");
         but13.setType("view");
 
         ComplexButton but1=new ComplexButton();
         but1.setName("技术交流");
         but1.setSub_button(new Button[]{but11,but12,but13});
 
-        ViewButton but2=new ViewButton();
-        but2.setName("查看我的信息");
-        but2.setType("view");
-        but2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8790dca489d4979a&redirect_uri=http%3A%2F%2Fsunkang.wicp.net%2Fwechat%2FtestOAuth&response_type=code&scope=snsapi_userinfo&state=112#wechat_redirect");
+        ViewButton but21=new ViewButton();
+        but21.setName("分享临时二维码");
+        but21.setType("view");
+        but21.setUrl("http://sunkang.wicp.net/wechat/shareTempTwoCode");
 
-        ClickButton but3=new ClickButton();
-        but3.setName("点个赞");
-        but3.setType("click");
-        but3.setKey("V1001_GOD");
+        ViewButton but22=new ViewButton();
+        but22.setName("分享永久二维码");
+        but22.setType("view");
+        but22.setUrl("http://sunkang.wicp.net/wechat/shareTwoCode");
+
+        ComplexButton but2=new ComplexButton();
+        but2.setName("分享公众号");
+        but2.setSub_button(new Button[]{but21,but22});
+
+        ViewButton but3=new ViewButton();
+        but3.setName("查看我的信息");
+        but3.setType("view");
+        but3.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8790dca489d4979a&redirect_uri=http%3A%2F%2Fsunkang.wicp.net%2Fwechat%2FtestOAuth&response_type=code&scope=snsapi_userinfo&state=112#wechat_redirect");
+
 
         //创建菜单
         Menu menu=new Menu();
