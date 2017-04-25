@@ -1,6 +1,8 @@
 package com.sunkang.service;
 
 import com.sunkang.common.Constants;
+import com.sunkang.common.OperationConstants;
+import com.sunkang.entity.user.UserInfo;
 import com.sunkang.entity.resp.ImageMessage;
 import com.sunkang.entity.resp.TextMessage;
 import com.sunkang.entity.resp.VideoMessage;
@@ -8,15 +10,16 @@ import com.sunkang.entity.resp.VoiceMessage;
 import com.sunkang.entity.resp.base.Image;
 import com.sunkang.entity.resp.base.Video;
 import com.sunkang.entity.resp.base.Voice;
+import com.sunkang.exception.WeChatException;
+import com.sunkang.utils.DateUtils;
 import com.sunkang.utils.XmlObjectUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
@@ -33,12 +36,18 @@ public class MessageService {
 
     private static Logger logger=Logger.getLogger(MessageService.class);
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TagsService tagsService;
+
     /**
      * 处理文本消息,并且返回要回复的消息
      * @param messageMap 消息封装的map
      * @return
      */
-    public String handelTextMessage(Map<String,String> messageMap){
+    public String handelTextMessage(Map<String,String> messageMap) throws WeChatException {
         //将消息保存到数据库中
         String content= messageMap.get("Content");//消息内容
 
@@ -48,8 +57,20 @@ public class MessageService {
         textMessage.setFromUserName(messageMap.get("ToUserName"));
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(Constants.RESP_MESSAGE_TYPE_TEXT);
-        textMessage.setContent(content);
 
+        switch (content){
+            case OperationConstants.TAGS://查看标签分组
+                content=tagsService.assembleTagsMessage();
+                break;
+            case OperationConstants.MY_XINXI://我的信息
+                String openId=messageMap.get("FromUserName");
+                content=userService.assembleUserMessage(openId);
+                break;
+            case OperationConstants.OPERATION://所有操作
+                content="回复：\n  "+OperationConstants.MY_XINXI+"\n  "+OperationConstants.TAGS+"\n  "+OperationConstants.OPERATION+"\n";
+                break;
+        }
+        textMessage.setContent(content);
         //转换消息为需要的xml格式
         Map<String,Class> alias=new HashMap<>();
         alias.put("xml",TextMessage.class);
@@ -234,7 +255,12 @@ public class MessageService {
         textMessage.setFromUserName(messageMap.get("ToUserName"));
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(Constants.RESP_MESSAGE_TYPE_TEXT);
-        textMessage.setContent("你关注我干什么？");
+        StringBuffer sb=new StringBuffer("感谢你的关注！\n请回复以下信息操作：\n");
+        sb.append(OperationConstants.MY_XINXI+"\n");
+        sb.append(OperationConstants.TAGS+"\n");
+
+        sb.append(OperationConstants.OPERATION+"\n");
+        textMessage.setContent(sb.toString());
 
         //转换消息为需要的xml格式
         Map<String,Class> alias=new HashMap<>();

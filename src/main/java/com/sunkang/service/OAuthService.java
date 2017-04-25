@@ -2,7 +2,7 @@ package com.sunkang.service;
 
 import com.sunkang.common.Constants;
 import com.sunkang.entity.OAuthAccessToken;
-import com.sunkang.entity.UserInfo;
+import com.sunkang.entity.user.UserInfo;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

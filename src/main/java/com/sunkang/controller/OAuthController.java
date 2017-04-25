@@ -1,11 +1,10 @@
 package com.sunkang.controller;
 
 import com.sunkang.entity.OAuthAccessToken;
-import com.sunkang.entity.UserInfo;
+import com.sunkang.entity.user.UserInfo;
 import com.sunkang.service.OAuthService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;

@@ -1,4 +1,4 @@
-package com.sunkang.entity;
+package com.sunkang.entity.user;
 
 /**
  * @author 孙康
@@ -6,6 +6,11 @@ package com.sunkang.entity;
  * Describe：用户信息
  */
 public class UserInfo {
+
+    /**
+     * 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+     */
+    private int subscribe;
 
     /**
      * 用户的唯一标识
@@ -16,6 +21,11 @@ public class UserInfo {
      * 用户昵称
      */
     private String nickName;
+
+    /**
+     * 用户的语言，简体中文为zh_CN
+     */
+    private String language;
 
     /**
      * 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
@@ -48,9 +58,31 @@ public class UserInfo {
     private String privilege;
 
     /**
+     * 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
+     */
+    private long subscribeTime;
+
+    /**
      * 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：获取用户个人信息（UnionID机制）
      */
     private String unionid;
+
+    /**
+     * 公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注
+     */
+    private String remark;
+
+    /**
+     * 用户所在的分组ID（兼容旧的用户分组接口）
+     */
+    private String groupid;
+
+    /**
+     * 用户被打上的标签ID列表
+     */
+    private String tagid_list;
+
+
 
     public String getOpenId() {
         return openId;
@@ -122,5 +154,53 @@ public class UserInfo {
 
     public void setUnionid(String unionid) {
         this.unionid = unionid;
+    }
+
+    public int getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(int subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public long getSubscribeTime() {
+        return subscribeTime;
+    }
+
+    public void setSubscribeTime(long subscribeTime) {
+        this.subscribeTime = subscribeTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(String groupid) {
+        this.groupid = groupid;
+    }
+
+    public String getTagid_list() {
+        return tagid_list;
+    }
+
+    public void setTagid_list(String tagid_list) {
+        this.tagid_list = tagid_list;
     }
 }

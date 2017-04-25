@@ -87,32 +87,6 @@ public class MenuService {
      */
     public String createMenuStr(){
         //现写死在这，后期从数据库中查询
-
-//        ClickButton but1=new ClickButton();
-//        but1.setName("技术交流");
-//        but1.setKey("V1001_TODAY_MUSIC");
-//        but1.setType("click");
-//
-//        ViewButton but2=new ViewButton();
-//        but2.setName("歌手简介");
-//        but2.setType("view");
-//        but2.setUrl("http://www.baidu.com/");
-//
-//        ClickButton but31=new ClickButton();
-//        but31.setName("赞一下");
-//        but31.setType("click");
-//        but31.setKey("V1001_GOOD");
-//
-//        ClickButton but32=new ClickButton();
-//        but32.setName("hello word");
-//        but32.setType("click");
-//        but32.setKey("V1001_HELLO_WORD");
-//
-//        //包含两个菜单的一级菜单
-//        ComplexButton but3=new ComplexButton();
-//        but3.setName("其他操作");
-//        but3.setSub_button(new Button[]{but31,but32});
-
         ClickButton but11=new ClickButton();
         but11.setName("ITeay");
         but11.setKey("V1001_ITEAY");
@@ -147,7 +121,7 @@ public class MenuService {
         but2.setSub_button(new Button[]{but21,but22});
 
         ViewButton but3=new ViewButton();
-        but3.setName("查看我的信息");
+        but3.setName("授权");
         but3.setType("view");
         but3.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8790dca489d4979a&redirect_uri=http%3A%2F%2Fsunkang.wicp.net%2Fwechat%2FtestOAuth&response_type=code&scope=snsapi_userinfo&state=112#wechat_redirect");
 

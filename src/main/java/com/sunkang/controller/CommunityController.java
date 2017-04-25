@@ -23,20 +23,20 @@ public class CommunityController {
      */
     @RequestMapping("toSKCommunity")
     public ModelAndView toSKCommunity(){
-        TestThread testThread=new TestThread();
-        testThread.start();
+//        TestThread testThread=new TestThread();
+//        testThread.start();
         return new ModelAndView("community/sKCommunity");
     }
 }
-class TestThread extends Thread{
-    public void run() {
-        for(int i=0;i<=10;i++){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(i+" 哈哈哈哈");
-        }
-    }
-}
+//class TestThread extends Thread{
+//    public void run() {
+//        for(int i=0;i<=10;i++){
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(i+" 哈哈哈哈");
+//        }
+//    }
+//}
