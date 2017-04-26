@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,17 +36,19 @@ public class UploadController
 
     private static String updatePath="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s";
 
+    private static String downPath="https://api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s";
+
     @Autowired
     private TokenService tokenService;
 
     @Autowired
     private RedisRepository redisRepository;
     /**
-     * 跳转到文件上传页面
+     * 跳转到文件上传下载页面
      * @return
      */
-    @RequestMapping("toUpload")
-    public ModelAndView toUpload(){
+    @RequestMapping("toUploadDown")
+    public ModelAndView toUploadDown(){
         String accessToken=tokenService.getAccessToken();
         return new ModelAndView("file/upload").addObject("accessToken",accessToken);
     }
@@ -134,11 +137,12 @@ public class UploadController
                     log.debug("上传文件结果："+posJson);
                     JSONObject jsonObject=JSONObject.fromObject(posJson);
                     Media media1=new Media();
-                    media1.setName(name);
+                    media1.setName(name);//素材名称
+                    media1.setFileName(fileName);//文件名称
                     media1.setCreateAt(jsonObject.getInt("created_at"));//创建时间
                     media1.setType(type);//媒体类型
                     if("thumb".equals(type)){
-                        media1.setThumbMediaId(jsonObject.getString("thumb_media_id"));//缩略图媒体id
+                        media1.setMediaId(jsonObject.getString("thumb_media_id"));//缩略图媒体id
                     }else {
                         media1.setMediaId(jsonObject.getString("media_id"));//媒体id
                     }
@@ -173,5 +177,94 @@ public class UploadController
         }
 
 //        log.debug("文件名称为："+file.);
+    }
+
+    /**
+     * 微信服务器文件下载，只能下载图片，语音，缩略图，视频不能下载
+     * @param req
+     * @param pos
+     * @param downFileName 要下载的素材名
+     * @throws WeChatException
+     */
+    @RequestMapping("fileDown")
+    public void fileDown(HttpServletRequest req,HttpServletResponse pos,String downFileName) throws WeChatException {
+        OutputStream os=null;
+        InputStream is=null;
+        BufferedInputStream bis=null;
+        try {
+            Media media= (Media) redisRepository.getObject(RedisKeyConstants.MEDIA_KEY+ downFileName);
+            String accessToken=tokenService.getAccessToken();
+            //文件下载路径
+            String path=String.format(downPath,accessToken,media.getMediaId());
+            //从微信服务器下载文件
+            URL url=new URL(path);
+            URLConnection urlConnection=url.openConnection();
+            is=urlConnection.getInputStream();
+            //将微信服务器的流返回给浏览器
+            //设置响应头
+            pos.setCharacterEncoding("utf-8");
+            pos.setContentType("multipart/form-data");
+            String fileName=media.getFileName();
+            //文件后缀
+            String type=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());
+            pos.setHeader("Content-Disposition","attachment;fileName=" + downFileName+"."+type);
+            os=pos.getOutputStream();
+            byte[] bytes=new byte[1024];
+            int size=0;
+            while ((size=is.read(bytes))!=-1){
+                os.write(bytes,0,size);
+            }
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new WeChatException("下载文件异常",e);
+        }finally {
+            if(bis!=null){
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(os!=null){
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
+    /**
+     * 测试jquery上传文件插件，
+     * @param req
+     * @param pos
+     * @param media
+     * @param fileName
+     */
+    @RequestMapping(value = "testAjaxFileUpload",method = RequestMethod.POST)
+    public void testAjaxFileUpload(HttpServletRequest req, HttpServletResponse pos, MultipartFile media,String fileName){
+
+        try {
+            log.debug("文件名为："+fileName);
+            log.debug("文件为："+media.getOriginalFilename());
+            InputStream is=media.getInputStream();
+            log.debug("文件大小为"+is.available());
+            is.close();
+            //这个js需要这样返回，否则返回的是一个html（加@ResponseBody都没用）
+            pos.getWriter().print("{success:'success',msg:'错了'}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

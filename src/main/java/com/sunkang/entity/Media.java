@@ -1,5 +1,7 @@
 package com.sunkang.entity;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import java.io.Serializable;
 
 /**
@@ -15,14 +17,10 @@ public class Media implements Serializable {
     private String type;
 
     /**
-     * 媒体id
+     * 媒体id或缩略图媒体id
      */
     private String mediaId;
 
-    /**
-     * 缩略图媒体id（如果是上传的缩略图的话）
-     */
-    private String thumbMediaId;
 
     /**
      * 创建时间
@@ -34,12 +32,17 @@ public class Media implements Serializable {
      */
     private String name;
 
-    public String getThumbMediaId() {
-        return thumbMediaId;
+    /**
+     * 文件名称
+     */
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setThumbMediaId(String thumbMediaId) {
-        this.thumbMediaId = thumbMediaId;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getType() {
