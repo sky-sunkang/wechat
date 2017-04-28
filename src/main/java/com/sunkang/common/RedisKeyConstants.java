@@ -11,4 +11,6 @@ public class RedisKeyConstants {
      * 媒体文件key开头
      */
     public static final String MEDIA_KEY="media_";
+
+    public static final String LOCATION="location_";
 }

@@ -2,6 +2,9 @@ package com.sunkang.service;
 
 import com.sunkang.common.Constants;
 import com.sunkang.common.OperationConstants;
+import com.sunkang.common.RedisKeyConstants;
+import com.sunkang.dao.RedisRepository;
+import com.sunkang.entity.lbs.Location;
 import com.sunkang.entity.user.UserInfo;
 import com.sunkang.entity.resp.ImageMessage;
 import com.sunkang.entity.resp.TextMessage;
@@ -11,6 +14,7 @@ import com.sunkang.entity.resp.base.Image;
 import com.sunkang.entity.resp.base.Video;
 import com.sunkang.entity.resp.base.Voice;
 import com.sunkang.exception.WeChatException;
+import com.sunkang.utils.BaiduMapUtils;
 import com.sunkang.utils.DateUtils;
 import com.sunkang.utils.XmlObjectUtils;
 import org.apache.commons.io.IOUtils;
@@ -18,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -42,6 +47,12 @@ public class MessageService {
     @Autowired
     private TagsService tagsService;
 
+    @Autowired
+    private RedisRepository redisRepository;
+
+    @Autowired
+    private LbsService lbsService;
+
     /**
      * 处理文本消息,并且返回要回复的消息
      * @param messageMap 消息封装的map
@@ -50,6 +61,16 @@ public class MessageService {
     public String handelTextMessage(Map<String,String> messageMap) throws WeChatException {
         //将消息保存到数据库中
         String content= messageMap.get("Content");//消息内容
+
+        //如果是附近+关键字，则返回一个图文信息
+        if(content.startsWith(OperationConstants.LIB)){
+            try {
+                return lbsService.handLbsMessage(messageMap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         //响应文本消息
         TextMessage textMessage=new TextMessage();
@@ -67,7 +88,7 @@ public class MessageService {
                 content=userService.assembleUserMessage(openId);
                 break;
             case OperationConstants.OPERATION://所有操作
-                content="回复：\n  "+OperationConstants.MY_XINXI+"\n  "+OperationConstants.TAGS+"\n  "+OperationConstants.OPERATION+"\n";
+                content="回复：\n  "+OperationConstants.MY_XINXI+"\n  "+OperationConstants.TAGS+"\n  "+OperationConstants.LIB+"+关键字"+"\n"+OperationConstants.OPERATION+"\n";
                 break;
         }
         textMessage.setContent(content);
@@ -198,11 +219,24 @@ public class MessageService {
      * @param messageMap
      * @return
      */
-    public String handelLocationMessage(Map<String ,String> messageMap){
+    public String handelLocationMessage(Map<String ,String> messageMap) throws IOException {
         String location_X= messageMap.get("Location_X");//纬度
         String location_Y=messageMap.get("Location_Y");//经度
         String scale= messageMap.get("Scale");//缩放比例
         String label=messageMap.get("Label");//位置信息
+
+        //将该位置信息保存在redis数据库中,用于附近搜索
+        Location location=new Location();
+        location.setOpenId(messageMap.get("FromUserName"));//用户id
+        location.setLng(location_Y);
+        location.setLat(location_X);
+        location.setScale(scale);
+        //将微信坐标转成百度坐标
+        Location baiLocation=new Location();
+        BaiduMapUtils.convertCoord(location.getLng(),location.getLat());
+        location.setBd09Lat(baiLocation.getBd09Lat());
+        location.setBd09Lng(baiLocation.getBd09Lng());
+        redisRepository.saveObject(RedisKeyConstants.LOCATION+location.getOpenId(),location);
 
         //响应一个文本消息
         TextMessage textMessage=new TextMessage();
@@ -258,8 +292,9 @@ public class MessageService {
         StringBuffer sb=new StringBuffer("感谢你的关注！\n请回复以下信息操作：\n");
         sb.append(OperationConstants.MY_XINXI+"\n");
         sb.append(OperationConstants.TAGS+"\n");
-
+        sb.append(OperationConstants.LIB+"+关键字"+"\n");
         sb.append(OperationConstants.OPERATION+"\n");
+
         textMessage.setContent(sb.toString());
 
         //转换消息为需要的xml格式
@@ -307,10 +342,24 @@ public class MessageService {
      * @param messageMap
      * @return
      */
-    public String handelLocationEvent(Map<String,String> messageMap){
+    public String handelLocationEvent(Map<String,String> messageMap) throws IOException {
         String latitude=messageMap.get("Latitude");//地理位置纬度
         String longitude=messageMap.get("Longitude");//地理位置经度
         String precision=messageMap.get("Precision");//地理位置精度
+
+        //将该位置信息保存在redis数据库中,用于附近搜索
+        Location location=new Location();
+        location.setOpenId(messageMap.get("FromUserName"));//用户id
+        location.setLng(longitude);
+        location.setLat(latitude);
+        location.setScale(precision);
+        //将微信坐标转成百度坐标
+        Location baiLocation=new Location();
+        BaiduMapUtils.convertCoord(location.getLng(),location.getLat());
+        location.setBd09Lat(baiLocation.getBd09Lat());
+        location.setBd09Lng(baiLocation.getBd09Lng());
+
+        redisRepository.saveObject(RedisKeyConstants.LOCATION+location.getOpenId(),location);
 
         //响应一个文本消息
         TextMessage textMessage=new TextMessage();
@@ -318,7 +367,7 @@ public class MessageService {
         textMessage.setFromUserName(messageMap.get("ToUserName"));
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(Constants.RESP_MESSAGE_TYPE_TEXT);
-        textMessage.setContent("你的位置在\n【纬度："+latitude+"\n经度："+longitude+"\n精度："+precision+"\n】");
+        textMessage.setContent("你的位置在\n【经度："+latitude+"\n纬度："+longitude+"\n精度："+precision+"\n】");
 
         //转换消息为需要的xml格式
         Map<String,Class> alias=new HashMap<>();

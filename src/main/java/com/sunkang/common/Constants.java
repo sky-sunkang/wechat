@@ -6,6 +6,10 @@ package com.sunkang.common;
  * Describe：保存常量
  */
 public class Constants {
+    /**
+     * 百度地图api访问ak
+     */
+    public final static String BAIDU_AK="zG9ZHEURUd0WH20G6gQ8HRRa";
 
     /**
      * 第三方用户唯一凭证
