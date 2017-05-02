@@ -36,7 +36,7 @@ public class LbsService {
         //获得附近检索信息
         List<BaiduPlace> baiduPlaces=BaiduMapUtils.searchPlace(query,location.getBd09Lng(),location.getBd09Lat());
         //组装图文信息
-        String posStr=BaiduMapUtils.makeArticles(baiduPlaces,messageMap.get("ToUserName"),openId);
+        String posStr=BaiduMapUtils.makeArticles(baiduPlaces,messageMap.get("ToUserName"),openId,location.getBd09Lng(),location.getBd09Lat());
         return posStr;
     }
 }

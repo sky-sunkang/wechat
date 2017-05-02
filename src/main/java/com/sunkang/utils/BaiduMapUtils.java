@@ -88,12 +88,12 @@ public class BaiduMapUtils {
 
             //将可能没有电话或者详细信息的错误捕捉
             try {
-                String telephone=placeJson.getString("telephone");//电话
-                baiduPlace.setTelephone(telephone);
                 //详细信息
                 JSONObject detailJson=placeJson.getJSONObject("detail_info");//详细
                 int distance=detailJson.getInt("distance");//距离
                 baiduPlace.setDistance(distance);
+                String telephone=placeJson.getString("telephone");//电话
+                baiduPlace.setTelephone(telephone);
             }catch (Exception e){
                 log.error("解析json出错",e);
             }
@@ -129,9 +129,11 @@ public class BaiduMapUtils {
      * @param baiduPlaces
      * @param formUser
      * @param toUser
+     * @param bd09lng
+     * @param bd09lat
      * @return
      */
-    public static String  makeArticles(List<BaiduPlace> baiduPlaces,String formUser,String toUser){
+    public static String  makeArticles(List<BaiduPlace> baiduPlaces,String formUser,String toUser,String bd09lng,String bd09lat){
         //将List排序，升序
         baiduPlaces.sort(BaiduPlace::compareTo);
         List<Articles> list=new ArrayList<>();
@@ -144,11 +146,14 @@ public class BaiduMapUtils {
                     +"\n电话："+phone
                     +"\n地址："+baiduPlace.getAddress();
             articles.setTitle(title);
-            articles.setUrl("http://www.iteye.com/");
+            String url=Constants.DOMIN_NAME+"/toLbsMap?p1=%s,%s&p2=%s,%s";
+            url=String.format(url,bd09lng,bd09lat,baiduPlace.getLng(),baiduPlace.getLat());
+            log.debug("附近搜索url："+url);
+            articles.setUrl(url);
             if(i==0){
-                articles.setPicUrl("http://sunkang.wicp.net/wechat/image/lbs_big.png");
+                articles.setPicUrl(Constants.DOMIN_NAME+"/image/lbs_big.png");
             }else {
-                articles.setPicUrl("http://sunkang.wicp.net/wechat/image/lbs_sm.png");
+                articles.setPicUrl(Constants.DOMIN_NAME+ "/image/lbs_sm.png");
             }
             list.add(articles);
         }

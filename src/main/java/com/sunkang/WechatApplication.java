@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.PrintStream;
 
@@ -17,6 +18,7 @@ import java.io.PrintStream;
 @SpringBootApplication//springboot应用
 @ServletComponentScan( basePackages = "com.sunkang.*")
 @ComponentScan( basePackages = "com.sunkang.*")
+@EnableScheduling//定时任务扫描
 @EnableAutoConfiguration//打开自动配置
 public class WechatApplication {
     public static void main(String[] args) {

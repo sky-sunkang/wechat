@@ -6,6 +6,11 @@ package com.sunkang.common;
  * Describe：保存常量
  */
 public class Constants {
+
+    /**
+     * 应用访问路劲
+     */
+    public final static String DOMIN_NAME="http://sunkang.wicp.net/wechat";
     /**
      * 百度地图api访问ak
      */
