@@ -34,7 +34,7 @@ public class AccessTokenJob {
      * @return 公众号接口调用唯一凭证
      * @throws Exception
      */
-    @Scheduled(fixedDelay=2*60*60*1000)
+    @Scheduled(cron="0 0 */2 * * ? ")
     public AccessToken getAccessTokenToRedis() throws Exception {
         //获取token所要调用的地址
         String path="https://api.weixin.qq.com/cgi-bin/token?"+

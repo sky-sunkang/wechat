@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunkang.dao.KnowledgeRepository">
+
+    <resultMap id="knowledge_result" type="com.sunkang.entity.Knowledge">
+        <id column="joke_id" property="jokeId" jdbcType="int"/>
+        <result column="joke_content" property="jokeContent" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--获得所有问答-->
+    <select id="findAllKnowledge" resultMap="knowledge_result" >
+        select id,question,answer,category from knowledge
+    </select>
+
+</mapper>

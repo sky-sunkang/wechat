@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunkang.dao.ChatLogRepository">
+    <resultMap id="joke_result" type="com.sunkang.entity.ChatLog">
+        <id column="id" property="id" jdbcType="int"/>
+        <result column="open_id" property="openid" jdbcType="VARCHAR"/>
+        <result column="open_id" property="openid" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="req_msg" property="reqMsg" jdbcType="VARCHAR"/>
+        <result column="resp_msg" property="respMsg" jdbcType="VARCHAR"/>
+        <result column="chat_category" property="chatCategory" jdbcType="int"/>
+    </resultMap>
+
+    <!--随机获得一条笑话-->
+    <select id="getJoke" resultMap="joke_result" >
+        select *from  chat_log
+    </select>
+
+</mapper>

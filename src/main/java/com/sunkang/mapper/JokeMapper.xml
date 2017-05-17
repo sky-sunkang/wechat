@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunkang.dao.JokeRepository">
+
+    <resultMap id="joke_result" type="com.sunkang.entity.Joke">
+        <id column="joke_id" property="jokeId" jdbcType="int"/>
+        <result column="joke_content" property="jokeContent" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--随机获得一条笑话-->
+    <select id="getJoke" resultMap="joke_result" >
+        SELECT joke_Id,joke_content
+            FROM joke
+            WHERE joke_Id >= ((
+            SELECT MAX(joke_Id)
+            FROM joke)-(
+            SELECT MIN(joke_Id)
+            FROM joke)) * RAND() + (
+            SELECT MIN(joke_Id)
+            FROM joke)
+            LIMIT
+
+    </select>
+
+</mapper>
