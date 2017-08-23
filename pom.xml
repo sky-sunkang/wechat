@@ -195,11 +195,24 @@
       </includes>
       <filtering>false</filtering>
     </resource>
+      <resource>
+        <!-- 指定resources插件处理哪个目录下的资源文件 -->
+        <directory>src/main/webapp</directory>
+        <!--注意此次必须要放在此目录下才能被访问到 -->
+        <targetPath>META-INF/resources</targetPath>
+        <includes>
+          <include>**/**</include>
+        </includes>
+      </resource>
   </resources>
     <plugins>
+      <!-- 热启动，热部署依赖插件 -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <fork>true</fork>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -207,6 +220,9 @@
         <configuration>
           <target>1.8</target>
           <source>1.8</source>
+            <archive>
+              <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+            </archive>
         </configuration>
       </plugin>
     </plugins>
