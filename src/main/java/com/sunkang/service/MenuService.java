@@ -99,7 +99,7 @@ public class MenuService {
 
         ViewButton but13=new ViewButton();
         but13.setName("孙康的社区");
-        but13.setUrl("http://sunkang.wicp.net/wechat/toSKCommunity");
+        but13.setUrl("http://120.77.177.138/wechat/toSKCommunity");
         but13.setType("view");
 
         ComplexButton but1=new ComplexButton();
@@ -109,12 +109,12 @@ public class MenuService {
         ViewButton but21=new ViewButton();
         but21.setName("分享临时二维码");
         but21.setType("view");
-        but21.setUrl("http://sunkang.wicp.net/wechat/shareTempTwoCode");
+        but21.setUrl("http://120.77.177.138/wechat/shareTempTwoCode");
 
         ViewButton but22=new ViewButton();
         but22.setName("分享永久二维码");
         but22.setType("view");
-        but22.setUrl("http://sunkang.wicp.net/wechat/shareTwoCode");
+        but22.setUrl("http://120.77.177.138/wechat/shareTwoCode");
 
         ComplexButton but2=new ComplexButton();
         but2.setName("分享公众号");
